@@ -15,5 +15,3 @@ logging.basicConfig(filename=LOG_FILE_PATH,
                     level=logging.INFO)
 
 
-if __name__ == '__main__':
-    logging.info('Started')
