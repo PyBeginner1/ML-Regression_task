@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+artifacts/raw.csv
+artifacts/test.csv
+artifacts/train.csv
+
 artifacts/
 
 # Distribution / packaging
