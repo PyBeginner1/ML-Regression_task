@@ -1,8 +1,10 @@
 import os
 import sys
+import pandas as pd
+
 from src.exception import CustomException
 from src.logger import logging
-import pandas as pd
+from src.components.data_transformation import DataTransformation
 
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
@@ -24,6 +26,9 @@ class DataIngestion:
         try:
             df = pd.read_csv('notebook\data\StudentsPerformance.csv')
 
+            new_cols = [col.replace(' ','_').replace('/','_') for col in df.columns]
+            df.columns = new_cols
+
             os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path), exist_ok = True)
 
             df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
@@ -44,4 +49,7 @@ class DataIngestion:
 
 if __name__ == '__main__':
     data = DataIngestion()
-    data.inititate_data_inestion()
+    train, test = data.inititate_data_inestion()
+
+    data_transformation = DataTransformation()
+    data_transformation.initiate_data_transformation(train, test)
